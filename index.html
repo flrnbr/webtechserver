@@ -10,11 +10,11 @@
 
     <body onload="checkCookie()">
         <div class="flex-container">
-            <h1 class="flex-item"><a href="http://localhost:3000/karte">Travelmap</a></h1>
+            <h1 class="flex-item"><a href="https://travelmap1312.herokuapp.com//karte">Travelmap</a></h1>
             <header class="column">
-                <a class="flex-item" id="hlogin" href="index.html">Login</a>
-                <a class="flex-item" id="hueber" href="http://localhost:3000/uebersicht">Reiseuebersicht</a>
-                <a class="flex-item" id="hkarte" href="http://localhost:3000/karte">Karte</a>
+                <a class="flex-item" id="hlogin" href="https://travelmap1312.herokuapp.com/">Login</a>
+                <a class="flex-item" id="hueber" href="https://travelmap1312.herokuapp.com/uebersicht">Reiseuebersicht</a>
+                <a class="flex-item" id="hkarte" href="https://travelmap1312.herokuapp.com/karte">Karte</a>
                 <button onclick="logout()" class="flex-item" type="submit" id="blogout">Logout</button>
             </header>
             <div class="flex-item" id="box">
@@ -31,7 +31,7 @@
 
             async function logout() {
 
-                await fetch("http://localhost:3000/logout", {
+                await fetch("https://travelmap1312.herokuapp.com/logout", {
                     method: "GET",
                     mode: 'cors',
                     headers: {
@@ -42,7 +42,7 @@
                     .then(result => result.json())
                     .then(json => json)
 
-                location.href = "http://localhost:3000/";
+                location.href = "https://travelmap1312.herokuapp.com/";
 
             }
 
@@ -51,7 +51,7 @@
 
                 //console.log(email);
                 //console.log(passwort);
-                return fetch("http://localhost:3000/login", {
+                return fetch("https://travelmap1312.herokuapp.com/login", {
                     method: "POST",
                     mode: 'cors',
                     credentials: 'include',
@@ -89,7 +89,7 @@
 
             const requestAuth = () => {
 
-                return fetch("http://localhost:3000/auth", {
+                return fetch("https://travelmap1312.herokuapp.com/auth", {
                     method: "GET",
                     mode: 'cors',
                     headers: {
