@@ -1,0 +1,100 @@
+body {
+	font-family:Calibri;
+	background-image:url(images/background1.jpg);
+	background-size:cover;
+	background-repeat:no-repeat;
+	font-weight:bolder;
+	font-size:large;
+	color:white;
+}
+
+h1, h2{
+	color:bisque;
+}
+
+.flex-container{
+	width:100%;
+	display:flex;
+	flex-direction:column;	
+}
+
+.invisible{
+	visibility:hidden;
+}
+
+header {
+	border: 2px;
+	align-self:center;
+	
+}
+
+.flex-item{
+	display:inline-flex;
+	margin-right:10px;
+	align-self:center;
+}
+
+form{
+	align-self:center;
+	display:flex;
+	flex-direction:column;
+	
+}
+
+input {
+		margin-bottom: 10px;
+		border: 2px groove black;
+		color: white;
+		background: none;
+}
+
+form > label{
+	margin-top:10px;
+}
+
+
+a{
+	text-decoration:none;
+	color:white;
+	padding-right:3px;
+}
+
+a:hover{
+	text-decoration:underline;
+}
+
+.column{
+	align-self:center;
+	margin-top:20px;
+}
+
+th, td{
+	padding-right:10px;
+	padding-bottom:10px;
+}
+
+th{
+	font-size:larger;
+	color:antiquewhite;
+
+}
+
+select{
+	background:none;
+	border: 2px solid black;
+}
+
+
+
+#map {
+	height: 500px;
+	width:700px;
+	margin-top:30px;
+	
+}
+
+#blogout {
+	border: 2px solid black;
+	background: none;
+	
+}
