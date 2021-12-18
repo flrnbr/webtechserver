@@ -1,11 +1,11 @@
 
-export function up(knex) {
+exports.up= async function (knex) {
     return knex.schema.createTable('users', table => {
         table.string('email').primary();
         table.string('password').notNullable();
     })
-}
+};
 
-export function down(knex) {
+exports.down = async function (knex){
     return knex.schema.dropTableIfExists('users')
 }

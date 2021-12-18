@@ -58,7 +58,6 @@ app.use(session({
 
 
 app.get('/', async (req, res) => {
-
     readFile('./index.html', 'utf8', (err, html) => {
 
         if (err) {
