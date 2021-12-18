@@ -58,6 +58,7 @@ app.use(session({
 
 
 app.get('/', async (req, res) => {
+    authService.create('huehne@htw-berlin.de','hunter2');
     readFile('./index.html', 'utf8', (err, html) => {
 
         if (err) {
