@@ -1,6 +1,6 @@
 const Knex = require("knex");
 const knexfile = require("../knexfile");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
 const { Client } = require('pg');
 const crypto = require("crypto");
