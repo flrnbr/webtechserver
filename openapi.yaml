@@ -1,0 +1,221 @@
+openapi: 3.0.1
+info:
+  title: Reise Service
+  description: This is the Reise Service API
+  version: 1.0.0
+externalDocs:
+  description: Github
+servers:
+  - url: https://travelmap1312.herokuapp.com/
+tags:
+  - name: reise
+    description: Everything about your Reisen
+
+paths:
+  /:
+    get:
+      tags:
+        - routing
+      summary: Get index file
+      responses:
+        "500":
+          description: "not able to load file" 
+        "200":
+          content:
+            application/json:
+              schema:
+                type: .html
+  /uebersicht:
+    get:
+      tags:
+        - routing
+      summary: Get overview file
+      responses:
+        "500":
+          description: "not able to load file" 
+        "200":
+          content:
+            application/json:
+              schema:
+                type: .html
+  /karte:
+    get:
+      tags:
+        - routing
+      summary: Get map file
+      responses:
+        "500":
+          description: "not able to load file" 
+        "200":
+          content:
+            application/json:
+              schema:
+                type: .html
+  /auth:
+    get:
+      tags:
+        - authentication
+      summary: returns Authentication status
+      responses:
+        "500":
+          description: "not able to load file" 
+        "200":
+          content:
+            application/json:
+              schema:
+                email: 
+                  type: "string"
+  /logout:
+    get:
+      tags:
+        - logout
+      summary: logs out
+      responses:
+        "200":
+          description: logged out
+          content:
+            application/json:
+              schema:
+                message: 
+                  type: "string"
+  /getall:
+    get:
+      tags: 
+        - reisen
+      summary: Returns all Data belonging to our requesting individual
+      responses: 
+        "200":
+          description: Array of all travels
+          content:
+            application/json:
+              schema: {
+                data:
+                  type: "array",
+                  items: '#/components/schemas/Reise'
+                  }
+  /getOne:
+    post:
+      tags:
+        - reisen
+    summary: returns one specific travel
+    requestBody: 
+      description: ID that is requested
+      content:
+        application/json:
+          schema:
+            id:
+              type: "string"
+    responses:
+      "200"
+        description: requested travel
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Reise'    
+  /insert:
+    post: 
+      tags: 
+        -reisen
+    summary: inserts new Travel into DB
+    requestBody: 
+      description: Data that needs to be inserted
+      content:
+        application/json:
+          schema:
+            rname: 
+              type: "string"
+            rland:
+              type: "string"
+            sdate:
+              type: "string"
+              format: "date-time"
+    response:
+      "200:"
+        description: returns ID of inserted Travel
+        content:
+          application/json:
+            schema:
+              reiseid:
+                type: "string"
+  /update:
+    post:
+      tags:
+        -reisen
+      summary: updates specified Reise
+      requestBody:
+        description: Data that needs to be updated
+        content:
+          application/json:
+            schema:
+              rname: 
+                type: "string"
+              rland:
+                type: "string"
+              sdate:
+                type: "string"
+                format: "date-time"
+      response:
+        "200"
+          description: Update ok
+  /delete:
+    post:
+      tags:
+        -reisen
+      summary: Deletes Travel spcified by ID
+      requestBody:
+        description:
+          application/json:
+            schema:
+              id:
+                type: "string"
+      response:
+        "200":
+          description: Deletion ok
+  /login:
+    post:
+      tags:
+        - login
+      summary: Log in and get cookie for authentication
+      requestBody:
+        description: Login Data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Login'
+      responses:
+        "200":
+          description: Successfull request
+          content:
+            application/json:
+              schema: 
+                status:
+                  type: string:
+
+components:
+  schemas:
+    Reise:
+      type: object
+      properties:
+        rname:
+          type: string
+        rland:
+          type: string
+        sdate:
+          type: string
+          format: date-time
+        edate:
+          type: string
+          format: date-time
+        id:
+          type: integer
+          format: int32
+        email:
+          type: string
+    Login:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
