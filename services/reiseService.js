@@ -4,7 +4,7 @@ const knexfile = require("../knexfile");
 const { Client } = require('pg');
 
 const client = new Client({
-    connectionString: 'postgres://hjvtvdaqwbctgc:7a412bc60c6149eb762f1785e8069bb9113455beb89dd2fc17f0141a5ebfb100@ec2-52-208-254-158.eu-west-1.compute.amazonaws.com:5432/dcmps79tnu40t6',
+    connectionString: DB_URI,
       ssl:
         true
           ? { rejectUnauthorized: false } // allow self-signed certificate for Heroku/AWS
