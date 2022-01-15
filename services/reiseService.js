@@ -9,11 +9,6 @@ const client = new Client({
         true
           ? { rejectUnauthorized: false } // allow self-signed certificate for Heroku/AWS
           : false, // if we run locally, we don't want SSL at all
-    /*port: 5433,
-    host: 'localhost',
-    database: 'test',
-    user: 'postgres',
-    password: 'abcd1234!'*/
 });
 
 client.on("error", (err) => console.log("Client Error", err));

@@ -82,6 +82,9 @@ class AuthService {
 
     async getUserEmailForSession(sessionId) {
         const sessionUser = await knex("sessions").where('sessionid',sessionId).first();
+        if(sessionUser.check_out_time < Date.now()){
+            return null;
+        }
         return sessionUser.email;
     }
 }
