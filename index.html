@@ -24,6 +24,7 @@
                     <label for="password">Passwort:</label>
                     <input type="password" id="pwd" name="pwd" required>
                     <input type="button" onclick="login()" value="Login" />
+                    <input type="button" onclick="callReg()" value="Registrieren" />
                 </form>
             </div>
         </div>
@@ -73,17 +74,7 @@
                 const log = await requestLogin(email, passwort);
                 console.log(log);
                 checkCookie();
-                /*if (email === "huehne@htw-berlin.de") {
-                    if (passwort === "hunter2") {
-                        setCookie("username", email, 1);
-                        location.href = "uebersicht.html";
-                        console.log("redirect");
-                    } else {
-                        alert("Password incorrect")
-                    }
-                } else {
-                    alert("Username or password incorrect");
-                }*/
+
 
             }
 
@@ -120,6 +111,9 @@
                 }
             }
 
+            async function callReg(){
+                
+            }
 
 
         </script>
