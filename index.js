@@ -81,6 +81,19 @@ app.get('/uebersicht', async (req, res) => {
     })
 })
 
+app.get('/register', async (req, res) => {
+
+    readFile('./register.html', 'utf8', (err, html) => {
+
+        if (err) {
+            res.status(500).send('Error occured');
+        }
+
+        res.send(html);
+
+    })
+})
+
 app.get('/karte', async (req, res) => {
 
     readFile('./karte.html', 'utf8', (err, html) => {

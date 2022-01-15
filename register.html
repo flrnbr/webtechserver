@@ -1,0 +1,45 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type='text/css' href="style1.css">
+        <title></title>
+        <title>Karten</title>
+    </head>
+
+    <body onload="checkCookie()">
+        <div class="flex-container">
+            <h1 class="flex-item"><a href="https://travelmap1312.herokuapp.com//karte">Travelmap</a></h1>
+            <header class="column">
+                <a class="flex-item" id="hlogin" href="https://travelmap1312.herokuapp.com/">Login</a>
+                <a class="flex-item" id="hueber" href="https://travelmap1312.herokuapp.com/uebersicht">Reiseuebersicht</a>
+                <a class="flex-item" id="hkarte" href="https://travelmap1312.herokuapp.com/karte">Karte</a>
+                <button onclick="logout()" class="flex-item" type="submit" id="blogout">Logout</button>
+            </header>
+            <div class="flex-item" id="box">
+                <form class="column">
+                    <label for="email">E-Mail:</label>
+                    <input type="email" id="email" name="email" required>
+                    <label for="password">Passwort:</label>
+                    <input type="password" id="pwd" name="pwd" required>
+                    <label for="password">Wiederhole Passwort:</label>
+                    <input type="password" id="pwd" name="pwd" required>
+                    <input type="button" onclick="reg()" value="Registrieren" />
+                </form>
+            </div>
+        </div>
+        <script>
+
+
+
+            async function reg(){
+                
+            }
+
+
+        </script>
+
+    </body>
+
+</html>
