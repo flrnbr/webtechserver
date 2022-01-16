@@ -81,6 +81,7 @@ app.get('/uebersicht', async (req, res) => {
     })
 })
 
+
 app.get('/register', async (req, res) => {
 
     readFile('./register.html', 'utf8', (err, html) => {
@@ -169,6 +170,11 @@ app.post("/delete", checkLogin, async (req, res) => {
     res.json({ state: 'deleted' });
 })
 
+app.post('/createUser', async(req, res)=>{
+    console.log('create new User started');
+    const payload = req.body;
+    await authService.create(payload.email, payload.password);
 
+})
 
 app.listen(port, console.log('Running on 3000'));

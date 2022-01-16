@@ -8,7 +8,7 @@
         <title>Karten</title>
     </head>
 
-    <body onload="checkCookie()">
+    <body>
         <div class="flex-container">
             <h1 class="flex-item"><a href="https://travelmap1312.herokuapp.com//karte">Travelmap</a></h1>
             <header class="column">
@@ -27,11 +27,32 @@
             </div>
         </div>
         <script>
+            
 
 
+            const requestReg = (email, passwort) => {
+
+                return fetch("https://travelmap1312.herokuapp.com/createUser", {
+                    method: "GET",
+                    mode: 'cors',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email: email, password: passwort })
+                })
+                .then(result => result.json())
+                .then(json => json)
+            }
 
             async function reg(){
-                
+                let email = document.getElementById('email').value;
+                let pwd1 = document.getElementById('pwd1').value;
+                let pwd2 = document.getElementById('pwd2').value;
+            
+                if(pwd1===pwd2){
+                    requestReg(email, pwd1);
+                }
             }
 
 
