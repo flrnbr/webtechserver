@@ -46,9 +46,7 @@ class AuthService {
         })
     }
 
-    async sendMail(){
-        console.log(process.env.EMAIL_SENDER);
-        console.log(process.env.EMAIL_PASSWORT);
+    async sendMail(email, uuid){
         let transporter = nodemailer.createTransport({
             service: "gmail",
             auth: {
@@ -59,9 +57,10 @@ class AuthService {
 
         let mailOptions = {
             from : "process.env.EMAIL_SENDER",
-            to : "flrnbr98@gmail.com",
-            subject : "Hallo Mail",
-            text : "Hallo Mail" 
+            to : email,
+            subject : "Confirmation Mail", 
+            text: "Bitte clicke auf diesen link",
+            html: "<a href='https://travelmap1312.herokuapp.com/'>Link</a>"
         }
 
         transporter.sendMail(mailOptions), function(err, success){
@@ -77,11 +76,14 @@ class AuthService {
 
         const salt = await bcrypt.genSalt();
         const passwordHash = await bcrypt.hash(passwort, salt);
+        const id = uuid.v4();
         await knex("benutzer").insert({
             email: email,
             password: passwordHash,
-            id: uuid.v4(),
+            id: id,
         });
+
+        this.sendMail(email, id);
     }
 
     async logout(sessionID){
