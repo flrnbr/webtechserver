@@ -41,9 +41,12 @@ class AuthService {
     }
 
     async setVerification(uuid){
-        await knex("benutzer").where('id',uuid).update({
-            verified: true,
-        })
+        const dbUser = await knex("benutzer").where({ email }).first();
+        if(dbUser.creationdate >= new Date(Date.now()-1800000)){
+            await knex("benutzer").where('id',uuid).update({
+                verified: true,
+            })
+        }
     }
 
     async setUUID(email){
@@ -99,6 +102,7 @@ class AuthService {
             email: email,
             password: passwordHash,
             id: id,
+            creationdate: new Date(Date.now())
         });
 
         this.sendMail(email);
