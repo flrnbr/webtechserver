@@ -117,7 +117,6 @@ Login setzt Cookie auf der Seite um mit Backend zu kommunizieren
 */
 app.post("/login", async (req, res) => {
     console.log('Login in Progress');
-    await authService.sendMail();
     const payload = req.body;
     const sessionId = await authService.login(payload.email, payload.password);
     if (!sessionId) {
