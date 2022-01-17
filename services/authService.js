@@ -126,6 +126,7 @@ class AuthService {
         if (!dbUser) {
             return false;
         }
+        console.log(dbUser.verified);
         return dbUser.verified;
     }
 
