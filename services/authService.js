@@ -1,6 +1,7 @@
 const Knex = require("knex");
 const knexfile = require("../knexfile");
 const bcrypt = require("bcryptjs");
+const uuid = require('uuid');
 
 const { Client } = require('pg');
 const crypto = require("crypto");
@@ -40,7 +41,7 @@ class AuthService {
 
     async setUUID(email){
         await knex("benutzer").where('email',email).update({
-            id: crypto.randomUUID(),
+            id: uuid.v4(),
         })
     }
 
@@ -51,7 +52,7 @@ class AuthService {
         await knex("benutzer").insert({
             email: email,
             password: passwordHash,
-            id: crypto.randomUUID(),
+            id: uuid.v4(),
         });
     }
 
