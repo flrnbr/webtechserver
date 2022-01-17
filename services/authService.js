@@ -47,6 +47,8 @@ class AuthService {
     }
 
     async sendMail(){
+        console.log(process.env.EMAIL_SENDER);
+        console.log(process.env.EMAIL_PASSWORT);
         let transporter = nodemailer.createTransport({
             service: "gmail",
             auth: {
@@ -57,7 +59,7 @@ class AuthService {
 
         let mailOptions = {
             from : "process.env.EMAIL_SENDER",
-            to : "flrnbr98@web.de",
+            to : "flrnbr98@gmail.com",
             subject : "Hallo Mail",
             text : "Hallo Mail" 
         }
