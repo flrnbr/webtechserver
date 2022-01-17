@@ -41,7 +41,7 @@ class AuthService {
     }
 
     async setVerification(uuid){
-        const dbUser = await knex("benutzer").where({ email }).first();
+        const dbUser = await knex("benutzer").where('id', uuid).first();
         if(dbUser.creationdate >= new Date(Date.now()-1800000)){
             await knex("benutzer").where('id',uuid).update({
                 verified: true,
