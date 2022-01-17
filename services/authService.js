@@ -55,12 +55,14 @@ class AuthService {
             }
         })
 
+        let link = 'https://travelmap1312.herokuapp.com/:' + uuid;
+        console.log(link);
         let mailOptions = {
             from : "process.env.EMAIL_SENDER",
             to : email,
             subject : "Confirmation Mail", 
             text: "Bitte clicke auf diesen link",
-            html: "<a href='https://travelmap1312.herokuapp.com/'>Link</a>"
+            html: "<a href='${link}'>Link</a>"
         }
 
         transporter.sendMail(mailOptions), function(err, success){

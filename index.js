@@ -81,6 +81,9 @@ app.get('/uebersicht', async (req, res) => {
     })
 })
 
+app.get('/register/:uuid', function(req, res) {
+    var uuid = req.params.uuid;
+});
 
 app.get('/register', async (req, res) => {
 
@@ -168,6 +171,7 @@ app.post("/delete", checkLogin, async (req, res) => {
     const state = await reiseService.delete(payload.id);
     res.json({ state: 'deleted' });
 })
+
 
 app.post('/createUser', async(req, res)=>{
     console.log('create new User started');
