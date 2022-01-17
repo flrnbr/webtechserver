@@ -2,6 +2,7 @@ const Knex = require("knex");
 const knexfile = require("../knexfile");
 const bcrypt = require("bcryptjs");
 const uuid = require('uuid');
+const nodemailer = require('nodemailer');
 
 const { Client } = require('pg');
 const crypto = require("crypto");
@@ -43,6 +44,31 @@ class AuthService {
         await knex("benutzer").where('email',email).update({
             id: uuid.v4(),
         })
+    }
+
+    async sendMail(){
+        let transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+                user: process.env.EMAIL_SENDER,
+                pass: process.env.EMAIL_PASSWORT
+            }
+        })
+
+        let mailOptions = {
+            from : "process.env.EMAIL_SENDER",
+            to : "flrnbr98@web.de",
+            subject : "Hallo Mail",
+            text : "Hallo Mail" 
+        }
+
+        transporter.sendMail(mailOptions), function(err, success){
+            if(err){
+                console.log(err);
+            }else{
+                console.log("Email send succesfully");
+            }
+        }
     }
 
     async create(email,passwort) {
