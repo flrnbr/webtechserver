@@ -51,7 +51,10 @@
                 let pwd2 = document.getElementById('pwd2').value;
             
                 if(pwd1===pwd2){
-                    requestReg(email, pwd1);
+                    var log = requestReg(email, pwd1);
+                }
+                if(log.wasCreated === true){
+                    document.getElementById("box").innerHTML = '<p class = flex-item">Wir haben dir eine E-Mail mit einem Bestätigungslink gesendet</p>';
                 }
             }
 
