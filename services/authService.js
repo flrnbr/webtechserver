@@ -52,7 +52,17 @@ class AuthService {
         })
     }
 
-    async sendMail(email, uuid){
+    async getUUID(email) {
+        const dbUser = await knex("benutzer").where({ email }).first();
+        if (!dbUser) {
+            return false;
+        }
+        return dbUser.id;
+    }
+
+    async sendMail(email){
+
+        var uuid = await this.getUUID(email);
         let transporter = nodemailer.createTransport({
             service: "gmail",
             auth: {
@@ -91,7 +101,7 @@ class AuthService {
             id: id,
         });
 
-        this.sendMail(email, id);
+        this.sendMail(email);
     }
 
     async logout(sessionID){
@@ -111,8 +121,22 @@ class AuthService {
         return bcrypt.compare(password, dbUser.password);
     }
 
+    async checkVerification(email, password) {
+        const dbUser = await knex("benutzer").where({ email }).first();
+        if (!dbUser) {
+            return false;
+        }
+        return dbUser.verified;
+    }
+
+
+
     async login(email, password) {
         const correctPassword = await this.checkPassword(email, password);
+        if(!this.checkVerification){
+            this.sendMail(email);
+            return -1;
+        }
         if (correctPassword) {
             const sessionId = Date.now();//crypto.randomUUID({disableEntropyCache : true});
             //await client.set(sessionId, email, { EX: 60 });
@@ -123,7 +147,7 @@ class AuthService {
             });
             return sessionId;
         }
-        return undefined;
+        return -2;
     }
 
     async getUserEmailForSession(sessionId) {

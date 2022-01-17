@@ -125,9 +125,13 @@ app.post("/login", async (req, res) => {
     console.log('Login in Progress');
     const payload = req.body;
     const sessionId = await authService.login(payload.email, payload.password);
-    if (!sessionId) {
+    if (sessionId === -1) {
         res.status(401);
         return res.json({ message: "Bad email or password" });
+    }
+    if (sessionId === -2) {
+        res.status(401);
+        return res.json({ message: "You have to be Verified to Login. Please check your mails to verify" });
     }
     res.cookie("session", sessionId, {
         expires: new Date(sessionId + 900000),
