@@ -133,7 +133,7 @@ class AuthService {
 
     async login(email, password) {
         const correctPassword = await this.checkPassword(email, password);
-        if(!this.checkVerification(email)){
+        if(this.checkVerification(email) == false){
             this.sendMail(email);
             return -1;
         }
