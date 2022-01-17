@@ -40,6 +40,12 @@ class AuthService {
 
     }
 
+    async setVerification(uuid){
+        await knex("benutzer").where('id',uuid).update({
+            verified: true,
+        })
+    }
+
     async setUUID(email){
         await knex("benutzer").where('email',email).update({
             id: uuid.v4(),
