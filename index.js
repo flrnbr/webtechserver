@@ -123,7 +123,6 @@ app.post("/login", async (req, res) => {
         res.status(401);
         return res.json({ message: "Bad email or password" });
     }
-    await authService.setUUID(payload.email);
     res.cookie("session", sessionId, {
         expires: new Date(sessionId + 900000),
         httpOnly: true,
