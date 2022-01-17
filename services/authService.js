@@ -78,7 +78,7 @@ class AuthService {
             to : email,
             subject : "Confirmation Mail", 
             text: "Bitte clicke auf diesen link",
-            html: "<a href='${link}'>Link</a>"
+            html: "<a href='" + link + "'>Link</a>"
         }
 
         transporter.sendMail(mailOptions), function(err, success){
