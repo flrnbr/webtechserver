@@ -174,6 +174,7 @@ app.post('/createUser', async(req, res)=>{
     console.log('create new User started');
     const payload = req.body;
     await authService.create(payload.email, payload.password);
+    res.json({state: "Created new User"})
 
 })
 

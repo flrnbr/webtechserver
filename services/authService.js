@@ -38,6 +38,12 @@ class AuthService {
 
     }
 
+    async setUUID(email){
+        await knex("benutzer").where('email',email).update({
+            id: crypto.randomUUID(),
+        })
+    }
+
     async create(email,passwort) {
 
         const salt = await bcrypt.genSalt();
@@ -45,6 +51,7 @@ class AuthService {
         await knex("benutzer").insert({
             email: email,
             password: passwordHash,
+            id: crypto.randomUUID(),
         });
     }
 
