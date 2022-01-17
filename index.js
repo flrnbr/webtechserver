@@ -83,6 +83,7 @@ app.get('/uebersicht', async (req, res) => {
 
 app.get('/register/:uuid', function(req, res) {
     var uuid = req.params.uuid;
+    console.log(uuid);
 });
 
 app.get('/register', async (req, res) => {
