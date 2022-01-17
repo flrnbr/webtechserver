@@ -121,7 +121,7 @@ class AuthService {
         return bcrypt.compare(password, dbUser.password);
     }
 
-    async checkVerification(email, password) {
+    async checkVerification(email) {
         const dbUser = await knex("benutzer").where({ email }).first();
         if (!dbUser) {
             return false;
@@ -133,7 +133,7 @@ class AuthService {
 
     async login(email, password) {
         const correctPassword = await this.checkPassword(email, password);
-        if(!this.checkVerification()){
+        if(!this.checkVerification(email)){
             this.sendMail(email);
             return -1;
         }
