@@ -55,7 +55,7 @@ class AuthService {
             }
         })
 
-        let link = 'https://travelmap1312.herokuapp.com/register/:' + uuid;
+        let link = 'https://travelmap1312.herokuapp.com/register/' + uuid;
         console.log(link);
         let mailOptions = {
             from : "process.env.EMAIL_SENDER",
