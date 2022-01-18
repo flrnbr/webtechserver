@@ -81,9 +81,11 @@ app.get('/uebersicht', async (req, res) => {
     })
 })
 
-app.get('/register/:uuid', async (req, res) => {
+app.get('/register/:uuid/:date', async (req, res) => {
     var uuid = req.params.uuid;
+    var uuid = req.params.date;
     console.log(uuid);
+    console.log(date);
     await authService.setVerification(uuid);
     res.json({state: "Now Verified"});
 });
