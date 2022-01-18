@@ -83,7 +83,7 @@ app.get('/uebersicht', async (req, res) => {
 
 app.get('/register/:uuid/:date', async (req, res) => {
     var uuid = req.params.uuid;
-    var uuid = req.params.date;
+    var date = req.params.date;
     console.log(uuid);
     console.log(date);
     await authService.setVerification(uuid);
