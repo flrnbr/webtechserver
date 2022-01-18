@@ -86,7 +86,7 @@ app.get('/register/:uuid/:date', async (req, res) => {
     var date = req.params.date;
     console.log(uuid);
     console.log(date);
-    await authService.setVerification(uuid);
+    await authService.setVerification(uuid,date);
     res.json({state: "Now Verified"});
 });
 

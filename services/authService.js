@@ -40,9 +40,9 @@ class AuthService {
 
     }
 
-    async setVerification(uuid){
+    async setVerification(uuid,date){
         const dbUser = await knex("benutzer").where('id', uuid).first();
-        if(dbUser.creationdate >= new Date(Date.now()-1800000)){
+        if(date >= Date.now()-1800000){
             await knex("benutzer").where('id',uuid).update({
                 verified: true,
             })
@@ -143,11 +143,11 @@ class AuthService {
 
     async login(email, password) {
         const correctPassword = await this.checkPassword(email, password);
-        if(await this.checkVerification(email) == false){
-            this.sendMail(email);
-            return -1;
-        }
         if (correctPassword) {
+            if(await this.checkVerification(email) == false){
+                this.sendMail(email);
+                return -1;
+            }
             const sessionId = Date.now();//crypto.randomUUID({disableEntropyCache : true});
             //await client.set(sessionId, email, { EX: 60 });
             await knex("sessions").insert({
