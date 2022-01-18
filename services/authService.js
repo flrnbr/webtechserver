@@ -98,14 +98,19 @@ class AuthService {
         const salt = await bcrypt.genSalt();
         const passwordHash = await bcrypt.hash(passwort, salt);
         const id = uuid.v4();
-        await knex("benutzer").insert({
-            email: email,
-            password: passwordHash,
-            id: id,
-            creationdate: new Date(Date.now())
-        });
+        try{
+            await knex("benutzer").insert({
+                email: email,
+                password: passwordHash,
+                id: id,
+                creationdate: new Date(Date.now())
+            });
+        }catch(err){
+            return false;
+        }
 
         this.sendMail(email);
+        return true;
     }
 
     async logout(sessionID){

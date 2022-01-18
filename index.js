@@ -183,8 +183,8 @@ app.post("/delete", checkLogin, async (req, res) => {
 app.post('/createUser', async(req, res)=>{
     console.log('create new User started');
     const payload = req.body;
-    await authService.create(payload.email, payload.password);
-    res.json({state: "New User created. Please verify your account by clicking the link in the mail we've sent.", wasCreated: true})
+    var wasCreated = await authService.create(payload.email, payload.password);
+    res.json({state: "New User created. Please verify your account by clicking the link in the mail we've sent.", wasCreated: wasCreated})
 
 })
 
