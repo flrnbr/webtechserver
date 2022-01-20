@@ -144,7 +144,8 @@
         async function addMember(gid){
             var email = prompt("Bitte gib die E-Mail der Person ein, die du zu deiner Gruppe hinzufügen willst.", "example@test.de");
             alert(email + gid);
-            console.log(await requestAddMember(email,gid));
+            const message = await requestAddMember(email, gid);
+            alert(message.message);
         }
 
         

@@ -116,6 +116,9 @@ class ReiseService {
 
     async addGroupMember(email, guuid){
         var user = await knex('benutzer').where('email',email).first();
+        if(!user){
+            return {state: false, message: 'Die eingegebene E-Mail'+ email + 'ist uns nicht bekannt.'}
+        }
         var group = await knex('Gruppen').where('group_id', guuid).first();
         if(group.member_emails.includes(email)){
             return {state: false, message: email + 'ist bereits Mitglied dieser Gruppe'};
