@@ -93,7 +93,9 @@ class ReiseService {
             group_id: guuid,
             member_emails: mem
         })
-        
+        if(user.group_ids == null){
+            user.group_ids = new Array();
+        }
         user.group_ids.push(guuid);
         await knex('benutzer').where('email', email).update({
             group_ids: user.group_ids
