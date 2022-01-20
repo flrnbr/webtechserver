@@ -215,7 +215,7 @@ app.post('/addGroupTravel', async (req, res) => {
     res.json({message: 'Neue Gruppenreise erstellt'});
 })
 
-app.get("/getGroupTravel/:gid", checkLogin, async (req, res) => {
+app.get("/getGroupTravel/:gid", async (req, res) => {
     const gid = req.params.gid;
     res.json(await reiseService.getAll(gid));
 })

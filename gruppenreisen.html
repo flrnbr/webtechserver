@@ -472,9 +472,9 @@
         }
 
 
-        async function showGroupTravles(gid){
-            const gtravels = requestGroupTravels(gid);
-            alert(gtravels[0].email);
+        async function showGroupTravels(gid){
+            const gtravels = await requestGroupTravels(gid);
+            alert(gtravels[0].rid);
         }
 
      </script>  
