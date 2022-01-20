@@ -190,4 +190,11 @@ app.post('/createUser', async(req, res)=>{
 
 })
 
+app.post('/newGroup',async(req, res)=>{
+    const payload = req.body;
+    console.log('Create new Group: ' + payload.gname + 'requested by ' + payload.email);
+    await reiseService.createGroup(payload.email, payload.gname);
+    res.json({created: true});
+})
+
 app.listen(port, console.log('Running on 3000'));

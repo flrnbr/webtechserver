@@ -2,6 +2,7 @@ const crypto = require("crypto");
 const Knex = require("knex");
 const knexfile = require("../knexfile");
 const { Client } = require('pg');
+const uuid = require('uuid');
 
 const client = new Client({
     connectionString: process.env.DB_URI,
@@ -76,6 +77,45 @@ class ReiseService {
             edate: edate
         });
         return rid;
+    }
+
+    async createGroup(email,gname){
+
+        console.log('Starting new Group creation');
+        var user = await knex('benutzer').where('email',email).first();
+        var mem = new Array();
+        mem.push(user.email);
+        var guuid = uuid.v4();
+        
+        await knex('Gruppen').insert({
+            group_name: gname,
+            group_id: guuid,
+            member_emails: mem
+        })
+
+        user.group_ids.push(guuid);
+        await knex('benutzer').where('email', email).update({
+            group_ids: user.group_ids
+        }) 
+
+        return guuid;
+    }
+
+    async addGroupMember(email, guuid){
+        var user = await knex('benutzer').where('email',email).first();
+        var group = await knex('Gruppen').where('group_id', guuid).first();
+        group.member_emails.push(user.email);
+        user.group_ids.push(guuid);
+        await knex('Gruppen').where('group_id',guuid).update({
+            member_ids: group.member_ids
+        })
+        await knex('benutzer').where('email', email).update({
+            group_ids: user.group_ids
+        }) 
+    }
+        
+    async addGroupReise(guuid){
+
     }
 
 }

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="C:\Users\Win7 Pro x64\Desktop\webtechserver\webtechserver\public\stylesheets\style1.css">
+        <title></title>
+        <title>Karten</title>
+    </head>
+
+    <body>
+        <div class="flex-container">
+            <h1 class="flex-item"><a href="https://travelmap1312.herokuapp.com/karte">Travelmap</a></h1>
+            <header class="column">
+                <a class="flex-item" id="hlogin" href="https://travelmap1312.herokuapp.com/">Login</a>
+                <a class="flex-item" id="hueber" href="https://travelmap1312.herokuapp.com/uebersicht">Reiseuebersicht</a>
+                <a class="flex-item" id="hkarte" href="https://travelmap1312.herokuapp.com/karte">Karte</a>
+                <a class="flex-item" id="hkarte" href="https://travelmap1312.herokuapp.com/gruppen">Gruppenreisen</a>
+                <button onclick="logout()" class="flex-item" type="submit" id="blogout">Logout</button>
+            </header>
+
+            <div class="column">
+                <h2>Gruppenreisen</h2>
+                <button onclick="showGroupForm()">Neue Gruppe erstellen</button>
+                <button onclick="showGroups()">Meine Gruppen</button>
+                <div id="vform">
+                    
+                </div>
+
+            </div>
+
+
+        </div>
+
+     <script>
+
+         function showGroupForm(){
+            document.getElementById('vform').innerHTML = '<form class="column" id="createGroup"><label for="text">Name der Gruppe:</label><input type="text" id="gname" name="gname"><input type="button" onclick="createGroup()" value="Erstellen" /></form>';
+         }
+
+         function showGroups(){
+            document.getElementById('vform').innerHTML = '<table id="myTable"><tr><th>Gruppenname</th></tr></table>' 
+         }
+
+         const requestNewGroup = async (gname, email) => {
+
+            return await fetch("https://travelmap1312.herokuapp.com/newGroup", {
+                method: "POST",
+                mode: 'cors',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    gname: gname,
+                    email: email
+                })
+            })
+            .then(result => result.json())
+            .then(json => json)
+        }
+
+         function createGroup(){
+             var gname = document.getElementById('gname').value;
+             var state = requestNewGroup(gname, 'flo.bauer98@web.de');
+             alert(state.created);
+         }
+
+     </script>  
+
+    </body>
+
+</html>
