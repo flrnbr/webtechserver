@@ -83,6 +83,7 @@ class ReiseService {
 
         console.log('Starting new Group creation');
         var user = await knex('benutzer').where('email',email).first();
+        console.log(user.email);
         var mem = new Array();
         mem.push(email);
         var guuid = uuid.v4();
@@ -92,7 +93,7 @@ class ReiseService {
             group_id: guuid,
             member_emails: mem
         })
-
+        
         user.group_ids.push(guuid);
         await knex('benutzer').where('email', email).update({
             group_ids: user.group_ids

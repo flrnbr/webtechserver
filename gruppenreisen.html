@@ -62,9 +62,9 @@
             .then(json => json)
         }
 
-         function createGroup(){
+        async function createGroup(){
              var gname = document.getElementById('gname').value;
-             var state = requestNewGroup(gname, 'flo.bauer98@web.de');
+             var state = await requestNewGroup(gname, 'flo.bauer98@web.de');
              alert(state.created);
          }
 
