@@ -116,6 +116,19 @@ app.get('/karte', async (req, res) => {
     })
 })
 
+app.get('/gruppen', async (req, res) => {
+
+    readFile('./gruppenreisen.html', 'utf8', (err, html) => {
+
+        if (err) {
+            res.status(500).send('Error occured');
+        }
+
+        res.send(html);
+
+    })
+})
+
 app.get('/auth', checkLogin, async (req, res) => {
     res.json({ email: req.userEmail });
 })

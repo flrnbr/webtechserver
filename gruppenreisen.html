@@ -5,7 +5,7 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="C:\Users\Win7 Pro x64\Desktop\webtechserver\webtechserver\public\stylesheets\style1.css">
+        <link rel="stylesheet" href="style1.css">
         <title></title>
         <title>Karten</title>
     </head>
@@ -353,19 +353,12 @@
                 tc.appendChild(but);
                 tr.appendChild(tc);
 
-                tc = document.createElement("TD");
-                but = document.createElement("BUTTON");
-                but.innerText = 'Reise hinzufügen';
-                but.setAttribute('onclick', 'showAddGroupReiseForm("'+ groups[i].group_id +'")');
-                tc.appendChild(but);
-                tr.appendChild(tc);
-
                 document.getElementById('myTable').appendChild(tr);
             }
 
         }
 
-         const requestNewGroup = async (gname, email) => {
+        const requestNewGroup = async (gname, email) => {
 
             return await fetch("https://travelmap1312.herokuapp.com/newGroup", {
                 method: "POST",
@@ -415,11 +408,13 @@
             alert(message.message);
         }
 
+        //Zeigt eine Form zum erstellen einer Reisegruppe an
         async function showAddGroupReiseForm(gid){
             document.getElementById('nrform').style.visibility = 'visible';
             document.getElementById('vform').innerHTML = '',
             document.getElementById('safe').setAttribute('onclick', 'createGroupTravel("' + gid + '")');
         }
+        
         
         const requestInsertGroupTravel = async (gid, rland, rname, sdate, edate) =>{
             return await fetch("https://travelmap1312.herokuapp.com/addGroupTravel", {
@@ -453,11 +448,12 @@
 
 
             document.getElementById('nrform').style.visibility = 'hidden';
-            alert(result.message);
+            await showGroupTravels(gid);
 
         }
 
-        async function deleteTravel(rid){
+        //löscht eine Gruppenreise
+        async function deleteTravel(rid, gid){
             
             const res = await fetch("https://travelmap1312.herokuapp.com/GroupTravel/"+rid, {
                 method: "DELETE",
@@ -466,9 +462,11 @@
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 }
-            })
+            }).then(result => result.json())
+            .then(json => json)
 
             console.log(res.message);
+            await showGroupTravels(gid);
         }
 
         //Ruft die Liste aller Reisen einer Gruppe auf
@@ -512,6 +510,13 @@
             var rthead = document.createElement("TH");
             rthead.innerText = 'Reise Ende';
             document.getElementById('rTable').appendChild(rthead);
+
+            rthead = document.createElement("TH");
+            var but = document.createElement("BUTTON");
+            but.innerText = 'Reise hinzufügen';
+            but.setAttribute('onclick', 'showAddGroupReiseForm("'+ gid +'")');
+            rthead.appendChild(but);
+            document.getElementById('rTable').appendChild(rthead);
             
             for(var i = 0; i < gtravels.length; i++){
             
@@ -535,7 +540,7 @@
                 tc = document.createElement("TD");
                 but = document.createElement("BUTTON");
                 but.innerText = 'Reise löschen';
-                but.setAttribute('onclick', 'deleteTravel("'+ gtravels[i].rid+'")');
+                but.setAttribute('onclick', 'deleteTravel("'+ gtravels[i].rid+'","'+ gid + '")');
                 tc.appendChild(but);
                 tr.appendChild(tc);
 
