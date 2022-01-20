@@ -197,4 +197,9 @@ app.post('/newGroup',async(req, res)=>{
     res.json({created: true});
 })
 
+app.get('/getGroups/:email', async(req, res)=>{
+    const email = req.params.email;
+    res.json(await reiseService.getGroups(email));
+})
+
 app.listen(port, console.log('Running on 3000'));

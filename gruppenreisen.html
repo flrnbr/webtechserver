@@ -36,13 +36,29 @@
 
      <script>
 
-         function showGroupForm(){
+        function showGroupForm(){
             document.getElementById('vform').innerHTML = '<form class="column" id="createGroup"><label for="text">Name der Gruppe:</label><input type="text" id="gname" name="gname"><input type="button" onclick="createGroup()" value="Erstellen" /></form>';
-         }
+        }
 
-         function showGroups(){
+        const requestGroups = async () => {
+
+            return await fetch("https://travelmap1312.herokuapp.com/getGroups/flo.bauer98@web.de", {
+                method: "GET",
+                mode: 'cors',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(result => result.json())
+            .then(json => json)
+        }
+
+        async function showGroups(){
+            var groups = await requestGroups();
+            alert(groups);
             document.getElementById('vform').innerHTML = '<table id="myTable"><tr><th>Gruppenname</th></tr></table>' 
-         }
+        }
 
          const requestNewGroup = async (gname, email) => {
 

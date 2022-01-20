@@ -104,6 +104,16 @@ class ReiseService {
         return guuid;
     }
 
+    async getGroups(email){
+        const user = await knex('benutzer').where('email', email).first();
+        var gs = new Array();
+        for(var i = 0;i < user.group_ids.length; i++){
+            gs.push(await knex('Gruppen').where('group_id', user.group_ids[i]).first();
+        }
+
+        return gs;
+    }
+
     async addGroupMember(email, guuid){
         var user = await knex('benutzer').where('email',email).first();
         var group = await knex('Gruppen').where('group_id', guuid).first();
