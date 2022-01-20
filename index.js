@@ -205,15 +205,15 @@ app.post('/createUser', async(req, res)=>{
 
 app.post('/newGroup',async(req, res)=>{
     const payload = req.body;
-    //const email = req.userEmail;
-    console.log('Create new Group: ' + payload.gname + 'requested by ' + payload.email);
+    const email = req.userEmail;
+    console.log('Create new Group: ' + payload.gname + 'requested by ' + email);
     await reiseService.createGroup(payload.email, payload.gname);
     res.json({created: true});
 })
 
 app.get('/getGroups/:email', async(req, res)=>{
-    //const email = req.userEmail;
-    const email = req.params.email;
+    const email = req.userEmail;
+    //const email = req.params.email;
     res.json(await reiseService.getGroups(email));
 })
 
