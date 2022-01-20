@@ -192,12 +192,14 @@ app.post('/createUser', async(req, res)=>{
 
 app.post('/newGroup',async(req, res)=>{
     const payload = req.body;
+    //const email = req.userEmail;
     console.log('Create new Group: ' + payload.gname + 'requested by ' + payload.email);
     await reiseService.createGroup(payload.email, payload.gname);
     res.json({created: true});
 })
 
 app.get('/getGroups/:email', async(req, res)=>{
+    //const email = req.userEmail;
     const email = req.params.email;
     res.json(await reiseService.getGroups(email));
 })
@@ -205,6 +207,12 @@ app.get('/getGroups/:email', async(req, res)=>{
 app.post('/addUserToGroup',async (req, res)=>{
     const payload = req.body;
     res.json(await reiseService.addGroupMember(payload.email, payload.id));   
+})
+
+app.post('/addGroupTravel', async (req, res) => {
+    const payload = req.body;
+    const reiseID = await reiseService.insert(payload.id, payload.name, payload.land, payload.start, payload.end);
+    res.json({message: 'Neue Gruppenreise erstellt'});
 })
 
 app.listen(port, console.log('Running on 3000'));
