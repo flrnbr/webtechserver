@@ -118,6 +118,9 @@ class ReiseService {
         var user = await knex('benutzer').where('email',email).first();
         var group = await knex('Gruppen').where('group_id', guuid).first();
         group.member_emails.push(user.email);
+        if(user.group_ids == null){
+            user.group_ids = new Array();
+        }
         user.group_ids.push(guuid);
         await knex('Gruppen').where('group_id',guuid).update({
             member_ids: group.member_ids
