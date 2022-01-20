@@ -220,4 +220,10 @@ app.get("/getGroupTravel/:gid", async (req, res) => {
     res.json(await reiseService.getAll(gid));
 })
 
+app.delete('/GroupTravel/:rid',async (req, res) =>{
+    const rid = req.params.rid;
+    await reiseService.delete(rid);
+    res.json({message: 'Reise gelöscht'});
+})
+
 app.listen(port, console.log('Running on 3000'));

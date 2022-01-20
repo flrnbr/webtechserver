@@ -457,6 +457,21 @@
 
         }
 
+        async function deleteTravel(rid){
+            
+            const res = await fetch("https://travelmap1312.herokuapp.com/GroupTravel/"+rid, {
+                method: "DELETE",
+                mode: 'cors',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            })
+
+            console.log(res.message);
+        }
+
+        //Ruft die Liste aller Reisen einer Gruppe auf
         const requestGroupTravels = async (gid) => {
 
             return await fetch("https://travelmap1312.herokuapp.com/getGroupTravel/"+gid, {
@@ -471,10 +486,62 @@
             .then(json => json)
         }
 
-
+        //zeigt die Reiseübersicht der Ausgewählten Reisegruppe aus
         async function showGroupTravels(gid){
+
+            document.getElementById('vform').innerHTML = '';
+            
             const gtravels = await requestGroupTravels(gid);
-            alert(gtravels[0].rid);
+
+            var rtable = document.createElement("TABLE");
+            rtable.setAttribute('id', 'rTable');
+            document.getElementById('vform').appendChild(rtable);
+
+            var rthead = document.createElement("TH");
+            rthead.innerText = 'Reisename';
+            document.getElementById('rTable').appendChild(rthead);
+
+            var rthead = document.createElement("TH");
+            rthead.innerText = 'Reiseland';
+            document.getElementById('rTable').appendChild(rthead);
+            
+            var rthead = document.createElement("TH");
+            rthead.innerText = 'Reise Start';
+            document.getElementById('rTable').appendChild(rthead);
+            
+            var rthead = document.createElement("TH");
+            rthead.innerText = 'Reise Ende';
+            document.getElementById('rTable').appendChild(rthead);
+            
+            for(var i = 0; i < gtravels.length; i++){
+            
+                tr = document.createElement("TR");
+                tc = document.createElement("TD");
+                tc.innerText = gtravels[i].rname;
+                tr.appendChild(tc);
+
+                tc = document.createElement("TD");
+                tc.innerText = gtravels[i].rland;
+                tr.appendChild(tc);
+
+                tc = document.createElement("TD");
+                tc.innerText = gtravels[i].sdate;
+                tr.appendChild(tc);
+
+                tc = document.createElement("TD");
+                tc.innerText = gtravels[i].edate;
+                tr.appendChild(tc);
+
+                tc = document.createElement("TD");
+                but = document.createElement("BUTTON");
+                but.innerText = 'Reise löschen';
+                but.setAttribute('onclick', 'deleteTravel("'+ gtravels[i].rid+'")');
+                tc.appendChild(but);
+                tr.appendChild(tc);
+
+                document.getElementById('rTable').appendChild(tr);
+            }
+
         }
 
      </script>  
