@@ -197,9 +197,14 @@ app.post('/newGroup',async(req, res)=>{
     res.json({created: true});
 })
 
-app.get('/getGroups', async(req, res)=>{
-    const email = 'flo.bauer98@web.de';
+app.get('/getGroups/:email', async(req, res)=>{
+    const email = req.params.email;
     res.json(await reiseService.getGroups(email));
+})
+
+app.post('/addUserToGroup',async (req, res)=>{
+    const payload = req.body;
+    res.json(await reiseService.addGroupMember(payload.email, payload.id));   
 })
 
 app.listen(port, console.log('Running on 3000'));

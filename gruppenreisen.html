@@ -55,9 +55,47 @@
         }
 
         async function showGroups(){
+            document.getElementById('vform').innerHTML = '';
+            
             var groups = await requestGroups();
-            alert(groups);
-            document.getElementById('vform').innerHTML = '<table id="myTable"><tr><th>Gruppenname</th></tr></table>' 
+            //Table
+            var gtable = document.createElement("TABLE");
+            gtable.setAttribute('id', 'myTable');
+            document.getElementById('vform').appendChild(gtable);
+            
+            //Table Head
+            var gthead = document.createElement("TH");
+            gthead.innerText = 'Gruppen';
+            document.getElementById('myTable').appendChild(gthead);
+
+            //Table Rows
+            var tr;
+            var tc;
+            var but;
+
+            for(var i = 0; i < groups.length; i++){
+                tr = document.createElement("TR");
+                tc = document.createElement("TD");
+                tc.innerText = groups[i].group_name;
+                tr.appendChild(tc);
+
+                tc = document.createElement("TD");
+                but = document.createElement("BUTTON");
+                but.innerText = 'Gruppen Reisen ansehen';
+                but.setAttribute('onclick', 'showTravels()');
+                tc.appendChild(but);
+                tr.appendChild(tc);
+
+                tc = document.createElement("TD");
+                but = document.createElement("BUTTON");
+                but.innerText = 'Mitglied hinzufügen';
+                but.setAttribute('onclick', 'addMember("'+ groups[i].group_id +'")');
+                tc.appendChild(but);
+                tr.appendChild(tc);
+
+                document.getElementById('myTable').appendChild(tr);
+            }
+
         }
 
          const requestNewGroup = async (gname, email) => {
@@ -82,7 +120,34 @@
              var gname = document.getElementById('gname').value;
              var state = await requestNewGroup(gname, 'flo.bauer98@web.de');
              alert(state.created);
-         }
+        }
+
+
+        const requestAddMember = async (email, gid) =>{
+            return await fetch("https://travelmap1312.herokuapp.com/addUserToGroup", {
+                method: "POST",
+                mode: 'cors',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id: gid,
+                    email: email
+                })
+            })
+            .then(result => result.json())
+            .then(json => json)
+        }
+
+        //TODO
+        async function addMember(gid){
+            var email = prompt("Bitte gib die E-Mail der Person ein, die du zu deiner Gruppe hinzufügen willst.", "example@test.de");
+            alert(email + gid);
+            console.log(await requestAddMember(email,gid));
+        }
+
+        
 
      </script>  
 
