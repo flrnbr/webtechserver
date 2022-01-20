@@ -84,7 +84,7 @@ class ReiseService {
         console.log('Starting new Group creation');
         var user = await knex('benutzer').where('email',email).first();
         var mem = new Array();
-        mem.push(user.email);
+        mem.push(email);
         var guuid = uuid.v4();
         
         await knex('Gruppen').insert({
