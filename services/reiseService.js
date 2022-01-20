@@ -123,7 +123,7 @@ class ReiseService {
         }
         user.group_ids.push(guuid);
         await knex('Gruppen').where('group_id',guuid).update({
-            member_ids: group.member_ids
+            member_ids: group.member_emails
         })
         await knex('benutzer').where('email', email).update({
             group_ids: user.group_ids
