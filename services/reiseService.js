@@ -108,7 +108,7 @@ class ReiseService {
         const user = await knex('benutzer').where('email', email).first();
         var gs = new Array();
         for(var i = 0;i < user.group_ids.length; i++){
-            gs.push(await knex('Gruppen').where('group_id', user.group_ids[i]).first();
+            gs.push(await knex('Gruppen').where('group_id', user.group_ids[i]).first());
         }
 
         return gs;
