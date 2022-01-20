@@ -213,6 +213,7 @@ app.post('/newGroup',async(req, res)=>{
 
 app.get('/getGroups/:email', async(req, res)=>{
     const email = req.userEmail;
+    console.log(email);
     //const email = req.params.email;
     res.json(await reiseService.getGroups(email));
 })
