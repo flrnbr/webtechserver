@@ -342,7 +342,7 @@
                 tc = document.createElement("TD");
                 but = document.createElement("BUTTON");
                 but.innerText = 'Gruppen Reisen ansehen';
-                but.setAttribute('onclick', 'showTravels()');
+                but.setAttribute('onclick', 'showGroupTravels("'+ groups[i].group_id +'")');
                 tc.appendChild(but);
                 tr.appendChild(tc);
 
@@ -418,7 +418,7 @@
         async function showAddGroupReiseForm(gid){
             document.getElementById('nrform').style.visibility = 'visible';
             document.getElementById('vform').innerHTML = '',
-            document.getElementById('safe').setAttribute('onclick', 'createNewGroupTravel("' + gid + '")');
+            document.getElementById('safe').setAttribute('onclick', 'createGroupTravel("' + gid + '")');
         }
         
         const requestInsertGroupTravel = async (gid, rland, rname, sdate, edate) =>{
@@ -454,7 +454,27 @@
 
             document.getElementById('nrform').style.visibility = 'hidden';
             alert(result.message);
-            
+
+        }
+
+        const requestGroupTravels = async (gid) => {
+
+            return await fetch("https://travelmap1312.herokuapp.com/getGroupTravel/"+gid, {
+                method: "GET",
+                mode: 'cors',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(result => result.json())
+            .then(json => json)
+        }
+
+
+        async function showGroupTravles(gid){
+            const gtravels = requestGroupTravels(gid);
+            alert(gtravels[0].email);
         }
 
      </script>  

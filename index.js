@@ -215,4 +215,9 @@ app.post('/addGroupTravel', async (req, res) => {
     res.json({message: 'Neue Gruppenreise erstellt'});
 })
 
+app.get("/getGroupTravel/:gid", checkLogin, async (req, res) => {
+    const gid = req.params.gid;
+    res.json(await reiseService.getAll(gid));
+})
+
 app.listen(port, console.log('Running on 3000'));
