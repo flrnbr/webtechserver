@@ -203,7 +203,7 @@ app.post('/createUser', async(req, res)=>{
 
 })
 
-app.post('/newGroup',async(req, res)=>{
+app.post('/newGroup',checkLogin, async(req, res)=>{
     const payload = req.body;
     const email = req.userEmail;
     console.log('Create new Group: ' + payload.gname + 'requested by ' + email);
@@ -211,30 +211,30 @@ app.post('/newGroup',async(req, res)=>{
     res.json({created: true});
 })
 
-app.get('/getGroups/:email', async(req, res)=>{
+app.get('/getGroups/:email',checkLogin, async(req, res)=>{
     const email = req.userEmail;
     console.log(email);
     //const email = req.params.email;
     res.json(await reiseService.getGroups(email));
 })
 
-app.post('/addUserToGroup',async (req, res)=>{
+app.post('/addUserToGroup',checkLogin, async (req, res)=>{
     const payload = req.body;
     res.json(await reiseService.addGroupMember(payload.email, payload.id));   
 })
 
-app.post('/addGroupTravel', async (req, res) => {
+app.post('/addGroupTravel',checkLogin, async (req, res) => {
     const payload = req.body;
     const reiseID = await reiseService.insert(payload.id, payload.name, payload.land, payload.start, payload.end);
     res.json({message: 'Neue Gruppenreise erstellt'});
 })
 
-app.get("/getGroupTravel/:gid", async (req, res) => {
+app.get("/getGroupTravel/:gid",checkLogin, async (req, res) => {
     const gid = req.params.gid;
     res.json(await reiseService.getAll(gid));
 })
 
-app.delete('/GroupTravel/:rid',async (req, res) =>{
+app.delete('/GroupTravel/:rid',checkLogin, async (req, res) =>{
     const rid = req.params.rid;
     await reiseService.delete(rid);
     res.json({message: 'Reise gelöscht'});
