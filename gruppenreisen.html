@@ -294,6 +294,20 @@
 
      <script>
 
+        const requestAuth = () => {
+
+            return fetch("https://travelmap1312.herokuapp.com/auth", {
+                method: "GET",
+                mode: 'cors',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(result => result.json())
+            .then(json => json)
+        }
+
         async function checkCookie() {
 
             const status = await requestAuth();
