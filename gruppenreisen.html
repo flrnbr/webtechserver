@@ -466,18 +466,48 @@
                 .then(json => json)
         }
 
+        const requestUpdate = async (id ,rland, rname, sdate, edate) => {
+
+            return await fetch("https://travelmap1312.herokuapp.com/update", {
+                method: "POST",
+                mode: 'cors',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id: id,
+                    rname: rname,
+                    rland: rland,
+                    sdate: sdate,
+                    edate: edate
+                })
+            })
+                .then(result => result.json())
+                .then(json => json)
+        }
+
+        async function updateGroupTravel(rid, gid) {
+            
+            let rname = document.getElementById("rname").value;
+            let rland = document.getElementById("country").value;
+            let start = document.getElementById("sdate").value;
+            let end = document.getElementById("edate").value;
         
+            const result = await requestUpdate(rid ,rland, rname ,start ,end);
+        }
+
         async function showUpdateTravel(rid, gid){
 
             var reise = await requestOne(rid);
 
             document.getElementById('nrform').style.visibility = 'visible';
-            document.getElementById('safe').setAttribute('onclick', 'updateGroupTravel("' + rid + '")');
+            document.getElementById('safe').setAttribute('onclick', 'updateGroupTravel("' + rid + '","' + gid +'")');
 
             document.getElementById("rname").value = reise.rname;
             document.getElementById("sdate").value = reise.sdate;
             document.getElementById("edate").value = reise.edate;
-            
+
         }
 
         
