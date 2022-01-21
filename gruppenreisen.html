@@ -449,11 +449,35 @@
             document.getElementById('safe').setAttribute('onclick', 'createGroupTravel("' + gid + '")');
         }
 
+        const requestOne = async (id) => {
+
+            return await fetch("https://travelmap1312.herokuapp.com/getOne", {
+                method: "POST",
+                mode: 'cors',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id: id,
+                })
+            })
+                .then(result => result.json())
+                .then(json => json)
+        }
 
         
         async function showUpdateTravel(rid, gid){
+
+            var reise = await requestOne(rid);
+
             document.getElementById('nrform').style.visibility = 'visible';
             document.getElementById('safe').setAttribute('onclick', 'updateGroupTravel("' + rid + '")');
+
+            document.getElementById("rname").value = reise.rname;
+            document.getElementById("sdate").value = reise.sdate;
+            document.getElementById("edate").value = reise.edate;
+            
         }
 
         
