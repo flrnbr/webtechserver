@@ -496,6 +496,7 @@
         
             const result = await requestUpdate(rid ,rland, rname ,start ,end);
             await showGroupTravels(gid);
+            document.getElementById('nrform').style.visibility = 'hidden';
         }
 
         async function showUpdateTravel(rid, gid){
