@@ -124,7 +124,7 @@
                     
                     var gtravels = await requestGroupTravels(groups[i].group_id); 
                     
-                    for (var i = 0; i < reiseArray.length; i++) {
+                    for (var j = 0; j < gtravels.length; j++) {
                         visitedCountries.push(gtravels[i].rland);
                     }
                 }
