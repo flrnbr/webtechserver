@@ -15,7 +15,7 @@
                 <a class="flex-item" id="hlogin" href="https://travelmap1312.herokuapp.com/">Login</a>
                 <a class="flex-item" id="hueber" href="https://travelmap1312.herokuapp.com/uebersicht">Reiseuebersicht</a>
                 <a class="flex-item" id="hkarte" href="https://travelmap1312.herokuapp.com/karte">Karte</a>
-                <a class="flex-item" id="hkarte" href="https://travelmap1312.herokuapp.com/gruppen">Gruppenreisen</a>
+                <a class="flex-item" id="hgruppen" href="https://travelmap1312.herokuapp.com/gruppen">Gruppenreisen</a>
                 <button onclick="logout()" class="flex-item" type="submit" id="blogout">Logout</button>
             </header>
             <div class="flex-item" id="box">
@@ -100,12 +100,14 @@
                 document.getElementById("hueber").style.visibility = "hidden";
                 document.getElementById("hkarte").style.visibility = "hidden";
                 document.getElementById("blogout").style.visibility = "hidden";
+                document.getElementById("hgruppen").style.visibility = "hidden";
 
 
                 if (status.email) {
                     document.getElementById("hueber").style.visibility = "visible";
                     document.getElementById("hkarte").style.visibility = "visible";
                     document.getElementById("blogout").style.visibility = "visible";
+                    document.getElementById("hgruppen").style.visibility = "visible";
                     document.getElementById("box").innerHTML = '<p class = flex-item">Du bist eingeloggt!</p>';
                 } else {
                     alert("Please Login:");
