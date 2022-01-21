@@ -294,40 +294,40 @@
 
      <script>
 
-    async function checkCookie() {
+        async function checkCookie() {
 
-        const status = await requestAuth();
+            const status = await requestAuth();
 
-        document.getElementById("hueber").style.visibility = "hidden";
-        document.getElementById("hkarte").style.visibility = "hidden";
+            document.getElementById("hueber").style.visibility = "hidden";
+            document.getElementById("hkarte").style.visibility = "hidden";
 
-        if (status.email) {
-            document.getElementById("hueber").style.visibility = "visible";
-            document.getElementById("hkarte").style.visibility = "visible";
+            if (status.email) {
+                document.getElementById("hueber").style.visibility = "visible";
+                document.getElementById("hkarte").style.visibility = "visible";
 
-        } else {
-            location.href = "https://travelmap1312.herokuapp.com/";
-        }
-    
-    }
-
-
-    async function logout() {
-
-        await fetch("https://travelmap1312.herokuapp.com/logout", {
-            method: "GET",
-            mode: 'cors',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
+            } else {
+                location.href = "https://travelmap1312.herokuapp.com/";
             }
-        })
-        .then(result => result.json())
-        .then(json => json)
-    
-    location.href = "https://travelmap1312.herokuapp.com/";
+        
+        }
 
-    }
+
+        async function logout() {
+
+            await fetch("https://travelmap1312.herokuapp.com/logout", {
+                method: "GET",
+                mode: 'cors',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(result => result.json())
+            .then(json => json)
+        
+        location.href = "https://travelmap1312.herokuapp.com/";
+
+        }
 
         function showGroupForm(){
             document.getElementById('nrform').style.visibility = 'hidden';
@@ -448,7 +448,15 @@
             document.getElementById('vform').innerHTML = '',
             document.getElementById('safe').setAttribute('onclick', 'createGroupTravel("' + gid + '")');
         }
+
+
         
+        async function showUpdateTravel(rid, gid){
+            document.getElementById('nrform').style.visibility = 'visible';
+            document.getElementById('vform').innerHTML = '',
+            document.getElementById('safe').setAttribute('onclick', 'updateGroupTravel("' + rid + '")');
+        }
+
         
         const requestInsertGroupTravel = async (gid, rland, rname, sdate, edate) =>{
             return await fetch("https://travelmap1312.herokuapp.com/addGroupTravel", {
@@ -575,6 +583,13 @@
                 but = document.createElement("BUTTON");
                 but.innerText = 'Reise löschen';
                 but.setAttribute('onclick', 'deleteTravel("'+ gtravels[i].rid+'","'+ gid + '")');
+                tc.appendChild(but);
+                tr.appendChild(tc);
+
+                tc = document.createElement("TD");
+                but = document.createElement("BUTTON");
+                but.innerText = 'Reise bearbeiten';
+                but.setAttribute('onclick', 'showUpdateTravel("'+ gtravels[i].rid+'","'+ gid + '")');
                 tc.appendChild(but);
                 tr.appendChild(tc);
 
