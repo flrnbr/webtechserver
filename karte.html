@@ -66,6 +66,33 @@
                     .then(json => json)
             }
 
+            const requestGroups = async () => {
+
+                return await fetch("https://travelmap1312.herokuapp.com/getGroups", {
+                    method: "GET",
+                    mode: 'cors',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(result => result.json())
+                .then(json => json)
+            }
+
+            const requestGroupTravels = async (gid) => {
+
+                return await fetch("https://travelmap1312.herokuapp.com/getGroupTravel/"+gid, {
+                    method: "GET",
+                    mode: 'cors',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(result => result.json())
+                .then(json => json)
+            }
 
             async function loadMap() {
                 var mymap = L.map('map').setView([51.505, -0.09], 4);
@@ -85,12 +112,21 @@
                 }).addTo(mymap);
 
                 var reiseArray = await requestData();
-
+                var groups = await requestGroups();
                 var visitedCountries = [];
 
 
                 for (var i = 0; i < reiseArray.length; i++) {
                     visitedCountries.push(reiseArray[i].rland);
+                }
+
+                for(var i = 0; i < groups.length; i++){
+                    
+                    var gtravels = await requestGroupTravels(groups[i].group_id); 
+                    
+                    for (var i = 0; i < reiseArray.length; i++) {
+                        visitedCountries.push(gtravels[i].rland);
+                    }
                 }
 
                 const loadData = async () => {
