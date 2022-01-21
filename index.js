@@ -207,14 +207,13 @@ app.post('/newGroup',checkLogin, async(req, res)=>{
     const payload = req.body;
     const email = req.userEmail;
     console.log('Create new Group: ' + payload.gname + 'requested by ' + email);
-    await reiseService.createGroup(payload.email, payload.gname);
+    await reiseService.createGroup(email, payload.gname);
     res.json({created: true});
 })
 
-app.get('/getGroups/:email',checkLogin, async(req, res)=>{
+app.get('/getGroups',checkLogin, async(req, res)=>{
     const email = req.userEmail;
     console.log(email);
-    //const email = req.params.email;
     res.json(await reiseService.getGroups(email));
 })
 

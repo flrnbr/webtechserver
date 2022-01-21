@@ -301,7 +301,7 @@
 
         const requestGroups = async () => {
 
-            return await fetch("https://travelmap1312.herokuapp.com/getGroups/flo.bauer98@web.de", {
+            return await fetch("https://travelmap1312.herokuapp.com/getGroups", {
                 method: "GET",
                 mode: 'cors',
                 headers: {
@@ -358,7 +358,7 @@
 
         }
 
-        const requestNewGroup = async (gname, email) => {
+        const requestNewGroup = async (gname) => {
 
             return await fetch("https://travelmap1312.herokuapp.com/newGroup", {
                 method: "POST",
@@ -368,8 +368,7 @@
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    gname: gname,
-                    email: email
+                    gname: gname
                 })
             })
             .then(result => result.json())
@@ -378,7 +377,7 @@
 
         async function createGroup(){
              var gname = document.getElementById('gname').value;
-             var state = await requestNewGroup(gname, 'flo.bauer98@web.de');
+             var state = await requestNewGroup(gname);
              alert(state.created);
         }
 
