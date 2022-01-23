@@ -496,16 +496,13 @@
 
         const requestOne = async (id) => {
 
-            return await fetch("https://travelmap1312.herokuapp.com/getOne", {
-                method: "POST",
+            return await fetch("https://travelmap1312.herokuapp.com/getOne/"+id, {
+                method: "GET",
                 mode: 'cors',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    id: id,
-                })
+                }
             })
                 .then(result => result.json())
                 .then(json => json)

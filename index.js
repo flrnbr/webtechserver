@@ -166,8 +166,8 @@ app.get("/getAll", checkLogin, async (req, res) => {
     res.json(await reiseService.getAll(req.userEmail));
 })
 
-app.post("/getOne", checkLogin, async (req, res) => {
-    const payload = req.body;
+app.get("/getOne/:id", checkLogin, async (req, res) => {
+    const id = req.params.id;
     res.json(await reiseService.getOne(payload.id));
 })
 
