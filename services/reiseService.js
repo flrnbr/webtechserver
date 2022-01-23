@@ -145,13 +145,18 @@ class ReiseService {
         user.group_ids.splice(i,1);
         var j = group.member_emails.indexOf(email);
         group.member_emails.splice(j, 1);
-        
+
         await knex('Gruppen').where('group_id',guuid).update({
             member_emails: group.member_emails
         })
         await knex('benutzer').where('email', email).update({
             group_ids: user.group_ids
         })
+
+        if (group.member_emails.length === 0){
+            await knex("reisenT").where('email', guuid).delete();
+            await knex('Gruppen').where('group_id',guuid).delete();
+        }
         return {state: true, message: email + 'hat die Gruppe verlassen'};
     }
 
