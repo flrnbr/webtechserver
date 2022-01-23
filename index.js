@@ -222,6 +222,12 @@ app.post('/addUserToGroup',checkLogin, async (req, res)=>{
     res.json(await reiseService.addGroupMember(payload.email, payload.id));   
 })
 
+app.post('/leaveGroup',checkLogin, async (req, res) =>{
+    const email = req.userEmail;
+    const payload = req.body;
+    res.json(await reiseService.leaveGroup(email, payload.gid));
+})
+
 app.post('/addGroupTravel',checkLogin, async (req, res) => {
     const payload = req.body;
     const reiseID = await reiseService.insert(payload.id, payload.name, payload.land, payload.start, payload.end);

@@ -402,6 +402,13 @@
                 tc.appendChild(but);
                 tr.appendChild(tc);
 
+                tc = document.createElement("TD");
+                but = document.createElement("BUTTON");
+                but.innerText = 'Gruppe verlassen';
+                but.setAttribute('onclick', 'leaveGroup("'+ groups[i].group_id +'")');
+                tc.appendChild(but);
+                tr.appendChild(tc);
+
                 document.getElementById('myTable').appendChild(tr);
             }
 
@@ -462,6 +469,28 @@
             document.getElementById('vform').innerHTML = '',
             document.getElementById('safe').setAttribute('onclick', 'createGroupTravel("' + gid + '")');
         }
+
+        const requestLeaveGroup = async (gid) =>{
+            return await fetch("https://travelmap1312.herokuapp.com/leaveGroup", {
+                method: "POST",
+                mode: 'cors',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id: gid
+                })
+            })
+            .then(result => result.json())
+            .then(json => json)
+        }
+
+        async function leaveGroup(gid){
+            const message = await requestLeaveGroup(gid);
+            alert(message.message);
+        }
+
 
         const requestOne = async (id) => {
 

@@ -138,8 +138,21 @@ class ReiseService {
         return {state: true, message: email + ' erfolgreich zur Gruppe hinzugefügt.'}; 
     }
         
-    async addGroupReise(guuid){
-
+    async leaveGroup(email, guuid){
+        var user = await knex('benutzer').where('email',email).first();
+        var group = await knex('Gruppen').where('group_id', guuid).first();
+        var i = user.group_ids.indexOf(guuid);
+        user.group_ids.splice(i,1);
+        var j = group.member_emails.indexOf(email);
+        group.member_emails.splice(j, 1);
+        
+        await knex('Gruppen').where('group_id',guuid).update({
+            member_emails: group.member_emails
+        })
+        await knex('benutzer').where('email', email).update({
+            group_ids: user.group_ids
+        })
+        return {state: true, message: email + 'hat die Gruppe verlassen'};
     }
 
 }
