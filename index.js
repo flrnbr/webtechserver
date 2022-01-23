@@ -187,7 +187,7 @@ app.post("/update", checkLogin, async (req, res) => {
 })
 
 
-app.post("/delete", checkLogin, async (req, res) => {
+app.delete("/delete", checkLogin, async (req, res) => {
     console.log('Deletion in Progress');
     const payload = req.body;
     const state = await reiseService.delete(payload.id);
