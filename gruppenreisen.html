@@ -488,7 +488,9 @@
 
         async function leaveGroup(gid){
             const message = await requestLeaveGroup(gid);
+            showGroups();
             alert(message.message);
+
         }
 
 
